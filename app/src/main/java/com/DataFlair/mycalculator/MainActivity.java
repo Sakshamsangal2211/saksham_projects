@@ -2,7 +2,7 @@ package com.DataFlair.mycalculator;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-//import android.content.Intent;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 
 public class MainActivity extends AppCompatActivity {
-//    public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
+    public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
 
     double in1 = 0, i2 = 0, tot = 0, MRP = 0;
     TextView edittext1;
@@ -231,11 +231,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-//    public void sendMessage(View view) {
-//        Intent intent = new Intent(this,MainActivity2.class);
-//        String message = edittext1.getText().toString();
-//        intent.putExtra(EXTRA_MESSAGE, message);
-//        startActivity(intent);
-//    }
+    public void sendMessage(View view) {
+        Intent intent = new Intent(this,MainActivity2.class);
+        String message = edittext1.getText().toString();
+        intent.putExtra(EXTRA_MESSAGE, message);
+        startActivity(intent);
+    }
 }
 
