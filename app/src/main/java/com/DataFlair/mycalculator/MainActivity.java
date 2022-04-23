@@ -1,241 +1,181 @@
 package com.DataFlair.mycalculator;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.StringTokenizer;
+
 
 public class MainActivity extends AppCompatActivity {
-    public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
+        TextView textView, tv;
+        Button bt;
+        int arr[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        int x = 0;
+        int i;
+        int j;
+        int v;
+        ArrayList<String> receiv;
+        ArrayList<String> wlc;
 
-    double in1 = 0, i2 = 0, tot = 0, MRP = 0;
-    TextView edittext1;
-    boolean Add, Sub, Multiply, Divide, Remainder, deci;
-    Button button_0, button_1, button_2, button_3, button_4, button_5, button_6, button_7, button_8, button_9, button_Add, button_Sub,
-            button_Mul, button_Div, button_Equ, button_Del, button_Dot, button_Remainder;
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-
-        button_0 = (Button) findViewById(R.id.b0);
-        button_1 = (Button) findViewById(R.id.b1);
-        button_2 = (Button) findViewById(R.id.b2);
-        button_3 = (Button) findViewById(R.id.b3);
-        button_4 = (Button) findViewById(R.id.b4);
-        button_5 = (Button) findViewById(R.id.b5);
-        button_6 = (Button) findViewById(R.id.b6);
-        button_7 = (Button) findViewById(R.id.b7);
-        button_8 = (Button) findViewById(R.id.b8);
-        button_9 = (Button) findViewById(R.id.b9);
-        button_Dot = (Button) findViewById(R.id.bDot);
-        button_Add = (Button) findViewById(R.id.badd);
-        button_Sub = (Button) findViewById(R.id.bsub);
-        button_Mul = (Button) findViewById(R.id.bmul);
-        button_Div = (Button) findViewById(R.id.biv);
-        button_Remainder = (Button) findViewById(R.id.BRemain);
-        button_Del = (Button) findViewById(R.id.buttonDel);
-        button_Equ = (Button) findViewById(R.id.buttoneql);
-
-        edittext1 = (TextView) findViewById(R.id.textView);
+//        public static String arti[] = {"0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"};
+//        public static String pric[] = {"0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"};
+        public static final String ok = "com.DataFlair.mycalculator.ok";
+        public static final String ok1 = "com.DataFlair.mycalculator.ok1";
+        public static final String ok2 = "com.DataFlair.mycalculator.ok2";
+        public static final String ok3 = "com.DataFlair.mycalculator.ok3";
+        public static final String ok4 = "com.DataFlair.mycalculator.ok4";
+        public static final String ok5 = "com.DataFlair.mycalculator.ok5";
+        public static final String ok6 = "com.DataFlair.mycalculator.ok6";
+        public static final String ok7 = "com.DataFlair.mycalculator.ok7";
+        public static final String ok8 = "com.DataFlair.mycalculator.ok8";
+        public static final String ok9 = "com.DataFlair.mycalculator.ok9";
 
 
-        button_1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                edittext1.setText(edittext1.getText() + "1");
-            }
-        });
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_main);
+            bt = findViewById(R.id.button3);
 
-        button_2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                edittext1.setText(edittext1.getText() + "2");
-            }
-        });
 
-        button_3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                edittext1.setText(edittext1.getText() + "3");
-            }
-        });
 
-        button_4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                edittext1.setText(edittext1.getText() + "4");
-            }
-        });
 
-        button_5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                edittext1.setText(edittext1.getText() + "5");
-            }
-        });
 
-        button_6.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                edittext1.setText(edittext1.getText() + "6");
-            }
-        });
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, PackageManager.PERMISSION_GRANTED);
 
-        button_7.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                edittext1.setText(edittext1.getText() + "7");
-            }
-        });
 
-        button_8.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                edittext1.setText(edittext1.getText() + "8");
-            }
-        });
+        }
 
-        button_9.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                edittext1.setText(edittext1.getText() + "9");
-            }
-        });
 
-        button_0.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                edittext1.setText(edittext1.getText() + "0");
-            }
-        });
 
-        button_Add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (edittext1.getText().length() != 0) {
-                    in1 = Float.parseFloat(edittext1.getText() + "");
-                    tot = 0.75 * in1 + tot;
-                    MRP = MRP + in1;
-                    Add = true;
-                    deci = false;
-                    edittext1.setText(null);
-                }
+        public void scanButton(View view) {
+            IntentIntegrator intentIntegrator = new IntentIntegrator(this);
+            intentIntegrator.initiateScan();
+        }
 
-            }
-        });
+        @Override
+        protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+            textView = findViewById(R.id.textView6);
+            receiv = new ArrayList();
+            wlc = new ArrayList();
+            wlc = getArrayList("welcome");
 
-        button_Sub.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (edittext1.getText().length() != 0) {
-                    in1 = Float.parseFloat(edittext1.getText() + "");
-                    Sub = true;
-                    deci = false;
-                    edittext1.setText(null);
+            receiv = getArrayList("please");
+//            SharedPreferences sharedPreferences = getSharedPreferences("demo", MODE_PRIVATE);
+//            String m = sharedPreferences.getString("0","djg");
+
+//            textView.setText(""+m);
+
+            IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+            if (intentResult != null) {
+                if (intentResult.getContents() == null) {
+                    textView.setText("cancelled");
+                } else {
+//                textView.setText(intentResult.getContents());
+                    x++;
+
+//                     v = Integer.parseInt(sharedPreferences.getString("bs", "dgdg"));
+
+//                    if (intentResult.getContents().equals("950"))
+//                        arr[x] = 500;
+//                    else if (intentResult.getContents().equals("510045"))
+//                        arr[x] = 1020;
+//                    arr[x] = 1020;
+//                    else if (intentResult.getContents() == "4121796")
+//                        arr[x] = 1100;
+//                    else if (intentResult.getContents() == "4121829")
+//                        arr[x] = 1020;
+                    for (j = 0; j < wlc.size(); j++) {
+                        if (intentResult.getContents().equals(wlc.get(j)))
+                        {
+                            arr[x] = Integer.parseInt(receiv.get(j));
+                        }
+                        }
+//
                 }
             }
-        });
-
-        button_Mul.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (edittext1.getText().length() != 0) {
-                    in1 = Float.parseFloat(edittext1.getText() + "");
-                    Multiply = true;
-                    deci = false;
-                    edittext1.setText(null);
-                }
-            }
-        });
-
-        button_Div.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                edittext1.setText("MRP SUM :" + MRP);
-            }
-
-        });
-
-        button_Remainder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                edittext1.setText("");
+               textView.setText(""+arr[x]);
 
 
-            }
-        });
-
-        button_Equ.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (Add || Sub || Multiply || Divide || Remainder) {
-                    i2 = Float.parseFloat(edittext1.getText() + "");
-                }
-
-                if (Add) {
-                    tot = tot + 0.75 * (Float.parseFloat(edittext1.getText() + ""));
-                    MRP = MRP + (Float.parseFloat(edittext1.getText() + ""));
-
-                    edittext1.setText("NET PAYABLE AMOUNT :" + tot);
-                    Add = false;
-                }
-
-                if (Sub) {
-
-                    edittext1.setText(in1 - i2 + "");
-                    Sub = false;
-                }
-
-                if (Multiply) {
-                    edittext1.setText(in1 * i2 + "");
-                    Multiply = false;
-                }
-
-                if (Divide) {
-                    edittext1.setText(in1 / i2 + "");
-                    Divide = false;
-                }
-                if (Remainder) {
-                    edittext1.setText(in1 % i2 + "");
-                    Remainder = false;
-                }
-            }
-        });
-
-        button_Del.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                edittext1.setText("");
-                in1 = 0.0;
-                i2 = 0.0;
-            }
-        });
-
-        button_Dot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                edittext1.setText("THANK YOU , HAVE A NICE DAY");
-
-            }
-        });
 
 
+
+
+            super.onActivityResult(requestCode, resultCode, data);
+
+        }
+    public ArrayList<String> getArrayList(String key) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        Gson gson = new Gson();
+        String json = prefs.getString(key, null);
+        Type type = new TypeToken<ArrayList<String>>() {
+        }.getType();
+        return gson.fromJson(json, type);
     }
 
-    public void sendMessage(View view) {
-        Intent intent = new Intent(this,MainActivity2.class);
-        String message = edittext1.getText().toString();
-        intent.putExtra(EXTRA_MESSAGE, message);
-        startActivity(intent);
+
+        public void okbutton(View view) {
+            Intent intent = new Intent(this, MainActivity3.class);
+            Bundle b = new Bundle();
+
+            b.putInt(ok, x);
+            b.putInt(ok1, arr[1]);
+            b.putInt(ok2, arr[2]);
+            b.putInt(ok3, arr[3]);
+            b.putInt(ok4, arr[4]);
+            b.putInt(ok5, arr[5]);
+            b.putInt(ok6, arr[6]);
+            b.putInt(ok7, arr[7]);
+            b.putInt(ok8, arr[8]);
+            b.putInt(ok9, arr[9]);
+            intent.putExtras(b);
+            startActivity(intent);
+        }
+
+        public void input(View view) {
+            Intent intent = new Intent(this, MainActivity5.class);
+            startActivity(intent);
+        }
     }
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

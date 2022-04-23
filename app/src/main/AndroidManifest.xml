@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.DataFlair.mycalculator">
+    <!-- <uses-sdk tools:overrideLibrary="       androidx.camera.camera2, androidx.camera.core,       androidx.camera.view, androidx.camera.lifecycle" /> -->
+    <!--  -->
+    <!-- <uses-feature android:name="android.hardware.camera" /> -->
+    <!--  -->
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:allowBackup="true"
@@ -10,9 +15,26 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".MainActivity5"
+            android:exported="false" />
+        <!-- <activity -->
+         <activity
+             android:name=".MainActivity4"
+         android:exported="false" />
+        <activity
+            android:name=".MainActivity3"
+            android:exported="false" /> <!-- <activity -->
+<!--         android:name=".MainActivity4" -->
+        <!-- android:exported="false" /> &lt;!&ndash; <meta-data &ndash;&gt; -->
+        <!-- android:name="com.google.android.gms.version" -->
+        <!-- android:value="@integer/google_play_services_version" /> -->
+        <activity
             android:name=".MainActivity2"
             android:exported="false" />
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
